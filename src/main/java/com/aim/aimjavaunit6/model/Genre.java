@@ -6,36 +6,39 @@ import javax.persistence.*;
 import com.fasterxml.jackson.annotation.*;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
+
 @Entity
-@Table(name = "ratings")
+@Table(name = "genres")
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
-public class Rating 
+public class Genre 
 {
   
-  @Id 
+  @Id
+  @SequenceGenerator(name = "genre_sequence", sequenceName = "genre_sequence", allocationSize = 1)
+  @GeneratedValue(strategy = GenerationType.AUTO, generator = "genre_sequence")
   @Column(name = "id")
   private Long id;
-  @Column(name = "rating")
-  private String rating;
-  @OneToMany(mappedBy = "rating", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+  @Column(name = "genre")
+  private String genre;
+  @OneToMany(mappedBy = "genre", fetch = FetchType.LAZY)
   @JsonIgnore
   private List<Movie> movies;
   
   
-  public Rating()
+  public Genre()
   {
-
+  
   }
 
-  public Rating(String rating)
+  public Genre(String genre)
   {
-    this.rating = rating;
+    this.genre = genre;
   }
 
-  public Rating(Long id, String rating)
+  public Genre(Long id, String genre)
   {
     this.id = id;
-    this.rating = rating;
+    this.genre = genre;
   }
 
   public Long getId()
@@ -48,14 +51,14 @@ public class Rating
     this.id = id;
   }
 
-  public String getRating()
+  public String getGenre()
   {
-    return rating;
+    return genre;
   }
 
-  public void setRating(String rating)
+  public void setGenre(String genre)
   {
-    this.rating = rating;
+    this.genre = genre;
   }
 
   public List<Movie> getMovies()
@@ -71,7 +74,7 @@ public class Rating
   @Override
   public String toString()
   {
-    return "Rating [id=" + id + ", movies=" + movies + ", rating=" + rating + "]";
+    return "Genre [genre=" + genre + ", id=" + id + ", movies=" + movies + "]";
   }
-  
+
 }

@@ -1,20 +1,30 @@
 package com.aim.aimjavaunit6.model;
 
+import java.util.*;
 import javax.persistence.*;
+
+import com.fasterxml.jackson.annotation.*;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 
 @Entity
 @Table(name = "directors")
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class Director 
 {
   
   @Id 
   @SequenceGenerator(name = "director_sequence", sequenceName = "director_sequence", allocationSize = 1)
   @GeneratedValue(strategy = GenerationType.AUTO, generator = "director_sequence")
-  @Column(name = "director_id")
+  @Column(name = "id")
   private Long id;
-  @Column(name = "director_name")
-  private String name;
+  @Column(name = "last_name")
+  private String lastName;
+  @Column(name = "first_name")
+  private String firstName;
+  @OneToMany(fetch = FetchType.LAZY, mappedBy = "director", cascade = CascadeType.ALL)
+  @JsonIgnore
+  private List<Movie> movies;
   
   
   public Director() 
@@ -22,46 +32,63 @@ public class Director
   
   }
 
-
-  public Director(String name) 
+  public Director(String lastName, String firstName)
   {
-    this.name = name;
+    this.lastName = lastName;
+    this.firstName = firstName;
   }
 
-
-  public Director(Long id, String name) 
+  public Director(Long id, String lastName, String firstName)
   {
     this.id = id;
-    this.name = name;
+    this.lastName = lastName;
+    this.firstName = firstName;
   }
-
-  public Long getId() 
+  
+  public Long getId()
   {
     return id;
   }
 
-
-  public void setId(Long id) 
+  public void setId(Long id)
   {
     this.id = id;
   }
 
-
-  public String getName() 
+  public String getLastName()
   {
-    return name;
+    return lastName;
   }
 
-
-  public void setName(String name) 
+  public void setLastName(String lastName)
   {
-    this.name = name;
+    this.lastName = lastName;
+  }
+
+  public String getFirstName()
+  {
+    return firstName;
+  }
+
+  public void setFirstName(String firstName)
+  {
+    this.firstName = firstName;
+  }
+
+  public List<Movie> getMovies()
+  {
+    return movies;
+  }
+
+  public void setMovies(List<Movie> movies)
+  {
+    this.movies = movies;
   }
 
   @Override
-  public String toString() 
+  public String toString()
   {
-    return "Director [id=" + id + ", name=" + name + "]";
+    return "Director [firstName=" + firstName + ", id=" + id + ", lastName=" + lastName + ", movies=" + movies + "]";
   }
 
 }

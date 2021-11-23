@@ -6,13 +6,13 @@
 
     <div class="flex row">
       <h1>{{ movie.title }} <span class="subtitle">({{ moment(movie.releaseDate).format("YYYY") }})</span></h1>
-      <Button title="Edit" />
+      <Button title="Edit" @btn-click="editMovie(this.id)" />
     </div>
 
     <div class="flex flex-info info">
-      <span class="details">{{ movie.ratingId }}</span> |
+      <span class="details">{{ movie.rating.rating }}</span> |
       <span class="details">{{ movie.movieLength }}</span> |
-      <span class="details">{{ movie.genre }}</span> |
+      <span class="details">{{ movie.genre.genre }}</span> |
       <span class="details">{{ moment(movie.releaseDate).format("D MMMM YYYY") }}</span>
     </div>
     
@@ -41,6 +41,9 @@
       };
     },
     methods: {
+      editMovie(id) {
+        this.$router.push({name: "EditMovie", params: { id: id }});
+      },
       async fetchMovie(id) {
         const res = await fetch(`api/movies/${id}`);
         const data = await res.json();

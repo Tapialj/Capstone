@@ -43,7 +43,7 @@
     {
       "title": "Oldboy",
       "genre": "drama",
-      "movieLength": "120",
+      "movieLength": 120,
       "releaseDate": "2003-11-21",
       "trailerUrl": "https://www.youtube.com/watch?v=2HkjrJ6IK5E",
       "ratingId": "4",
@@ -53,7 +53,7 @@
     {
       "title": "The Departed",
       "genre": "thriller",
-      "movieLength": "151",
+      "movieLength": 151,
       "releaseDate": "2006-10-06",
       "trailerUrl": "https://www.youtube.com/watch?v=n4O3x5BH18E",
       "ratingId": "4",

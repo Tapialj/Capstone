@@ -19,7 +19,8 @@
         <label for="genre">Genre</label>
         <select id="genre" name="genre" v-model="genre">
           <option disabled selected value="">--Select--</option>
-          <option value="action">Action</option>
+          <option :key="genre.id" v-for="genre in genres" :value="genre.genre">{{ genre.genre }}</option>
+          <!--<option value="action">Action</option>
           <option value="comedy">Comedy</option>
           <option value="drama">Drama</option>
           <option value="fantasy">Fantasy</option>
@@ -28,7 +29,7 @@
           <option value="romance">Romance</option>
           <option value="adventure">Adventure</option>
           <option value="western">Western</option>
-          <option value="musical">Musical</option>
+          <option value="musical">Musical</option>-->
         </select>
       </div>
 
@@ -51,10 +52,11 @@
         <label for="ratingId">MPAA Rating</label>
         <select id="ratingId" name="ratingId" v-model="ratingId">
           <option disabled selected="true" value="">--Select--</option>
-          <option value="1">G</option>
+          <option :key="rating.id" v-for="rating in ratings" :value="rating">{{ rating }}</option>
+          <!--<option value="1">G</option>
           <option value="2">PG</option>
           <option value="3">PG-13</option>
-          <option value="4">R</option>
+          <option value="4">R</option>-->
         </select>
       </div>
 
@@ -70,17 +72,24 @@
     components: {
       Button
     },
+    props: {
+      editData: Object,
+    },
     data() {
       return {
         errors: [],
-        title: null,
-        genre: "",
-        movieLength: null,
-        releaseDate: null,
-        trailerUrl: null,
-        ratingId: "",
-        director: null,
-        directorId: null
+        genres: [],
+        ratings: [],
+        movie: {
+          title: "",
+          genre: "",
+          movieLength: "",
+          releaseDate: "",
+          trailerUrl: "",
+          ratingId: "",
+          director: "",
+          directorId: ""
+        },
       };
     },
     methods: {
@@ -122,7 +131,7 @@
         }
       },
       submitMovie() {
-        const newMovie = {
+        this.movie = {
           title: this.title,
           genre: this.genre,
           movieLength: this.movieLength,
@@ -132,7 +141,7 @@
           directorId: ""
         }
 
-        this.$emit("save-movie", newMovie);
+        this.$emit("save-movie", this.movie);
       },
       validLength (movieDuration) {
         const test = +movieDuration;
@@ -149,11 +158,37 @@
         }
 
         return false;
+      },
+      async getGenres() {
+        const res = await fetch("api/genres");
+        const data = await res.json();
+
+        return data;
+      },
+      async getRatings() {
+        const res = await fetch("api/ratings");
+        const data = await res.json();
+
+        return data;
+      },
+      async getMovieDetails(id) {
+        const res = await fetch(`api/movies/${id}`);
+        const data = await res.json();
+
+        return data;
       }
     },
     emits: [
       "save-movie"
     ],
+    async beforeCreate() {
+      this.genres = await this.getGenres();
+      this.ratings = await this.getRatings();
+
+      if(this.editData.edit === true) {
+        this.movie = await this.getMovieDetails(this.editData.id);
+      }
+    }
   }
 </script>
 
