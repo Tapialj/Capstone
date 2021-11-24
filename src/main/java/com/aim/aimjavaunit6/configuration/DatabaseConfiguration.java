@@ -15,7 +15,7 @@ public class DatabaseConfiguration
 {
   
   @Bean
-  CommandLineRunner commandLineRunner(MovieRepository movieRepository, DirectorRepository directorRepository, RatingRepository ratingRepository, GenreRepository genreRepository, ActorRepository actorRepository)
+  CommandLineRunner commandLineRunner(MovieRepository movieRepository, DirectorRepository directorRepository, RatingRepository ratingRepository, GenreRepository genreRepository, ActorRepository actorRepository, CommentRepository commentRepository)
   {
     return args -> {
       Rating g = new Rating(
@@ -182,6 +182,7 @@ public class DatabaseConfiguration
 
       movieRepository.saveAll(List.of(avatar, theDarkKnight, inception, shutterIsland));
       actorRepository.saveAll(List.of(leonardoDicaprio, samWorthington, sigourneyWeaver, christianBale, heathLedger, aaronEckhart, kenWatanabe, elliotPage, markRuffalo, benKingsley));
+      
     };
   }
 

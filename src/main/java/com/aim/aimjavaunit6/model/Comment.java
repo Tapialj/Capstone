@@ -16,10 +16,11 @@ public class Comment implements Comparable<Comment>
   @GeneratedValue(strategy = GenerationType.AUTO, generator = "comment_sequence")
   @Column(name = "id")
   private Long id;
-  @ManyToOne
-  @JoinColumn(name = "movie_id", referencedColumnName = "id", nullable = false)
-  @JsonIgnore
+  @ManyToOne(fetch = FetchType.EAGER)
+  @JoinColumn(name = "movie_id", referencedColumnName = "id", insertable = false, updatable = false)
   private Movie movie;
+  @Column(name = "movie_id")
+  private Long movieId;
   @Column(name = "username")
   private String username;
   @Column(name = "comment")
@@ -37,24 +38,17 @@ public class Comment implements Comparable<Comment>
     this.comment = comment;
   }
 
-  public Comment(Movie movie, String username, String comment)
+  public Comment(Long movieId, String username, String comment)
   {
-    this.movie = movie;
+    this.movieId = movieId;
     this.username = username;
     this.comment = comment;
   }
 
-  public Comment(Long id, String username, String comment)
+  public Comment(Long id, Long movieId, String username, String comment)
   {
     this.id = id;
-    this.username = username;
-    this.comment = comment;
-  }
-
-  public Comment(Long id, Movie movie, String username, String comment)
-  {
-    this.id = id;
-    this.movie = movie;
+    this.movieId = movieId;
     this.username = username;
     this.comment = comment;
   }
@@ -75,14 +69,14 @@ public class Comment implements Comparable<Comment>
     this.id = id;
   }
 
-  public Movie getMovie()
+  public Long getMovie()
   {
-    return movie;
+    return movieId;
   }
 
-  public void setMovie(Movie movie)
+  public void setMovie(Long movieId)
   {
-    this.movie = movie;
+    this.movieId = movieId;
   }
 
   public String getUsername()
@@ -108,7 +102,7 @@ public class Comment implements Comparable<Comment>
   @Override
   public String toString()
   {
-    return "Comment [comment=" + comment + ", id=" + id + ", movie=" + movie + ", username=" + username + "]";
+    return "Comment [comment=" + comment + ", id=" + id + ", movie=" + movieId + ", username=" + username + "]";
   }  
 
 }

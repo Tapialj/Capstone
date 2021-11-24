@@ -42,6 +42,7 @@ public class Movie implements Comparable<Movie>
     inverseJoinColumns = @JoinColumn(name = "actor_id", referencedColumnName = "id"))
   private List<Actor> actors;
   @OneToMany(mappedBy = "movie", cascade = CascadeType.ALL)
+  @JoinColumn(name = "movie_id")
   private List<Comment> comments;
   
   
