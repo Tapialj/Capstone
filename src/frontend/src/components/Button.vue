@@ -1,5 +1,5 @@
 <template>
-  <button class="btn" @click="onClick()">{{ title }}</button>
+  <button class="btn" :type="type" @click="onClick()">{{ title }}</button>
 </template>
 
 <script>
@@ -7,7 +7,10 @@
     name: "Button",
     props: {
       title: String,
-      
+      type: {
+        default: "submit",
+        type: String,
+      },
     },
     methods: {
       onClick() {

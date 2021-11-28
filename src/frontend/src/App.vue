@@ -52,6 +52,15 @@
     justify-content: flex-start;
   }
 
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.125em;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+  }
+
   .no-align {
     align-items: stretch;
   }

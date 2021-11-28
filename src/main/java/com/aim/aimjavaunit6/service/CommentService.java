@@ -32,12 +32,14 @@ public class CommentService
     return commentRepository.findByMovieId(movieId);
   }
 
-  public void createComment(Comment comment)
+  public Comment createComment(Comment comment)
   {
     if(comment != null)
     {
       commentRepository.save(comment);
     }
+
+    return comment;
   }
 
 }

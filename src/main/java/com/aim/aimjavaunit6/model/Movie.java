@@ -28,13 +28,17 @@ public class Movie implements Comparable<Movie>
   @Column(name = "trailer_url")
   private String trailerUrl;
   @ManyToOne
-  @JoinColumn(name = "genre_id", referencedColumnName = "id", nullable = false)
+  @JoinColumn(name = "genre_id", referencedColumnName = "id", nullable = false)//insertable = false, updatable = false)
   private Genre genre;
+  // @Column(name = "genre_id")
+  // private Long genreId;
   @ManyToOne
-  @JoinColumn(name = "rating_id", referencedColumnName = "id", nullable = false)
+  @JoinColumn(name = "rating_id", referencedColumnName = "id", nullable = false)//insertable = false, updatable = false)
   private Rating rating;
+  // @Column(name = "rating_id")
+  // private Long ratingId;
   @ManyToOne
-  @JoinColumn(name = "director_id", referencedColumnName = "id", nullable = false)
+  @JoinColumn(name = "director_id", referencedColumnName = "id", nullable = false)//insertable = false, updatable = false)
   private Director director;
   @ManyToMany(fetch = FetchType.EAGER, cascade = {CascadeType.MERGE, CascadeType.PERSIST})
   @JoinTable(name = "movie_cast", 
@@ -42,7 +46,6 @@ public class Movie implements Comparable<Movie>
     inverseJoinColumns = @JoinColumn(name = "actor_id", referencedColumnName = "id"))
   private List<Actor> actors;
   @OneToMany(mappedBy = "movie", cascade = CascadeType.ALL)
-  @JoinColumn(name = "movie_id")
   private List<Comment> comments;
   
   

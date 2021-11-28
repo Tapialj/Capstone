@@ -2,7 +2,7 @@
   <div>
     <h1>Add Movie</h1>
 
-    <AddMovieForm @save-movie="saveMovie" />
+    <AddMovieForm :edit="editData" @save-movie="saveMovie" />
   </div>
 </template>
 
@@ -12,6 +12,13 @@
   export default {
     components: {
       AddMovieForm,
+    },
+    data() {
+      return {
+        editData: {
+          edit: false,
+        },
+      };
     },
     methods: {
       async saveMovie(movieData) {
