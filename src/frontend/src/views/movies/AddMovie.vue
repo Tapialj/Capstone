@@ -2,6 +2,11 @@
   <div>
     <h1>Add Movie</h1>
 
+    <div class="error" v-if="areErrors">
+      <label>ERROR: </label>
+      <h4>{{ error }}</h4>
+    </div>
+
     <MovieForm :edit="editData" @save-movie="saveMovie" />
   </div>
 </template>
@@ -18,11 +23,13 @@
         editData: {
           edit: false,
         },
+        error: "",
+        areErrors: false,
       };
     },
     methods: {
       async saveMovie(movieData) {
-        await fetch("api/movies", {
+        const res = await fetch("api/movies", {
           method: "POST",
           headers: {
             "Content-type": "application/json"
@@ -30,9 +37,25 @@
           body: JSON.stringify(movieData)
         });
 
-        this.$router.replace({name: "Movies"});
+        this.areErrors = this.handleErrors(res);
+        console.log(movieData);
+        if(!this.areErrors) {
+          this.$router.replace({name: "Movies"}); 
+        }
+        else {
+          const err = await res.json();
+          this.error = err.message;
+        }
+      },
+      handleErrors(response) {
+        if(response.ok) {
+          return false;
+        }
+        else {
+          return true;
+        }
       }
-    }
+    },
   }
 </script>
 
