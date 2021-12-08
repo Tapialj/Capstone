@@ -56,9 +56,9 @@ public class DirectorController
   }
 
   @PutMapping(path = "{directorId}")
-  public void updateDirector(@PathVariable("directorId") Long directorId, @RequestParam(required = false) String lastName, @RequestParam(required = false) String firstName)
+  public Director updateDirector(@RequestBody Director director)
   {
-    directorService.updateDirector(directorId, lastName, firstName);
+    return directorService.updateDirector(director);
   }
 
 }

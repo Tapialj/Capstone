@@ -34,7 +34,7 @@ public class ActorService
     return actorRepository.findById(id).orElseThrow(() -> new DoesNotExistException("Actor Does not exist."));
   }
 
-  public void addNewActor(Actor actor)
+  public Actor addNewActor(Actor actor)
   {
     Optional<Actor> actorOptional = actorRepository.findActorByName(actor.getLastName(), actor.getFirstName());
 
@@ -44,6 +44,8 @@ public class ActorService
     }
 
     actorRepository.save(actor);
+
+    return actor;
   }
 
   public void deleteActor(Long actorId)
@@ -59,31 +61,11 @@ public class ActorService
   }
 
   @Transactional
-  public void updateActor(Long actorId, String lastName, String firstName)
+  public Actor updateActor(Actor actor)
   {
-    Actor actor = actorRepository.findById(actorId).orElseThrow(() -> new DoesNotExistException("Actor with ID " + actorId + " does not exist."));
+    actorRepository.save(actor);
 
-    if(lastName != null && lastName.length() > 0 && Objects.equals(actor.getLastName(), lastName))
-    {
-      actor.setLastName(lastName);
-    }
-    
-    if(firstName != null && firstName.length() > 0 && Objects.equals(actor.getFirstName(), firstName))
-    {
-      actor.setFirstName(firstName);
-    }
-
-    // if(moviesActed != null && moviesActed.size() > 0)
-    // {
-    //   List<Movie> moviesCheck = actor.getMovies();
-    //   Collections.sort(moviesActed);
-    //   Collections.sort(moviesCheck);
-
-    //   if(moviesActed.equals(moviesCheck))
-    //   {
-    //     actor.setMovies(moviesActed);
-    //   }
-    // }
+    return actor;
   }
 
 }

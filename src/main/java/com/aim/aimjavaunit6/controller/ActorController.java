@@ -37,9 +37,9 @@ public class ActorController
 
   @PostMapping
   @ResponseStatus(HttpStatus.CREATED)
-  public void createActor(@RequestBody Actor actor)
+  public Actor createActor(@RequestBody Actor actor)
   {
-    actorService.addNewActor(actor);
+    return actorService.addNewActor(actor);
   }
 
   @DeleteMapping(path = "{actorId}")
@@ -49,9 +49,9 @@ public class ActorController
   }
 
   @PutMapping(path = "{actorId}")
-  public void updateActor(@PathVariable("actorId") Long actorId, @RequestParam(required = false) String lastName, @RequestParam(required = false) String firstName)
+  public Actor updateActor(@RequestBody Actor actor)
   {
-    actorService.updateActor(actorId, lastName, firstName);
+    return actorService.updateActor(actor);
   }
 
 }

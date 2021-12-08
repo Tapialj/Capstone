@@ -67,31 +67,11 @@ public class DirectorService
   }
 
   @Transactional
-  public void updateDirector(Long directorId, String lastName, String firstName)//, List<Movie> moviesDirected)
+  public Director updateDirector(Director director)
   {
-    Director director = directorRepository.findById(directorId).orElseThrow(() -> new DoesNotExistException("Director with ID " + directorId + " does not exist."));
+    directorRepository.save(director);
 
-    if(lastName != null && lastName.length() > 0 && Objects.equals(director.getLastName(), lastName))
-    {
-      director.setLastName(lastName);
-    }
-    
-    if(firstName != null && firstName.length() > 0 && Objects.equals(director.getFirstName(), firstName))
-    {
-      director.setFirstName(firstName);
-    }
-
-    // if(moviesDirected != null && moviesDirected.size() > 0)
-    // {
-    //   List<Movie> moviesCheck = director.getMovies();
-    //   Collections.sort(moviesDirected);
-    //   Collections.sort(moviesCheck);
-
-    //   if(moviesDirected.equals(moviesCheck))
-    //   {
-    //     director.setMovies(moviesDirected);
-    //   }
-    // }
+    return director;
   }
 
 }
