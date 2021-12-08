@@ -33,7 +33,7 @@
     },
     methods: {
       async saveDirector(directorData) {
-        console.log(directorData);
+        
         const res = await fetch(`api/directors/${this.id}`, {
           method: "PUT",
           headers: {
@@ -48,7 +48,7 @@
           const director = await res.json();
           await this.updateMovies(director, directorData.movies);
 
-          this.$router.replace({name: "Director", params: {id: this.id }});  
+          this.$router.replace({name: "DirectorDetails", params: {id: this.id }});  
         }
         else {
           const err = await res.json();
@@ -69,7 +69,7 @@
           });
         });
       },
-       handleErrors(response) {
+      handleErrors(response) {
         if(response.ok) {
           return false;
         }
