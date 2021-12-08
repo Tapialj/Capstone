@@ -27,7 +27,7 @@
         <label for="movie">Movies</label>
         <div class="grid check-container">
           <div :key="movie.id" class="checkbox" v-for="movie in movies">
-            <input :key="movie.id" type="checkbox" name="movie" :id="[movie.lastName, movie.firstName]" :checked="directedBy(movie.director.id)" :value="movie.id" v-model="selectedMovies" @change="selectMovies" />
+            <input :key="movie.id" type="checkbox" name="movie" :id="[movie.lastName, movie.firstName]" :checked="directedBy(movie.director.id)" :value="movie.id" v-model="selectedMovies" />
             <label :for="movie.id">{{ movie.title }}</label>
           </div>
         </div>
@@ -95,11 +95,11 @@
         return false;
       },
       submitDirector() {
+        this.selectMovies();
+
         this.$emit("save-director", { director: this.director, movies: this.selectedMovieObjects });
       },
       selectMovies() {
-        this.selectedMovieObjects = [];
-
         this.selectedMovieObjects = this.movies.filter((movie) => !this.selectedMovies.indexOf(movie.id));
       },
       async getMovies() {
@@ -121,8 +121,8 @@
     async created() {
       this.movies = await this.getMovies();
 
-      if(this.edit.edit === true) {
-        this.director = await this.getDirectorDetails(this.editData.id);
+      if(this.edit.edit) {
+        this.director = await this.getDirectorDetails(this.edit.id);
       }
     }
   }

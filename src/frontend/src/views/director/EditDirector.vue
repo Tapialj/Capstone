@@ -2,6 +2,11 @@
   <div>
     <h1>Edit Director</h1>
 
+    <div class="error" v-if="areErrors">
+      <label>ERROR: </label>
+      <h4>{{ error }}</h4>
+    </div>
+
     <DirectorForm :edit="editData" @save-director="saveDirector" />
   </div>
 </template>
@@ -22,24 +27,66 @@
           edit: true,
           id: this.id
         },
+        error: "",
+        areErrors: false,
       };
     },
     methods: {
       async saveDirector(directorData) {
-        await fetch(`api/directors/${this.id}`, {
+        console.log(directorData);
+        const res = await fetch(`api/directors/${this.id}`, {
           method: "PUT",
           headers: {
             "Content-type": "application/json"
           },
-          body: JSON.stringify(directorData)
+          body: JSON.stringify(directorData.director)
         });
 
-        this.$router.replace({name: "Director", params: {id: this.id }});
+        this.areErrors = this.handleErrors(res);
+
+        if(!this.areErrors) {
+          const director = await res.json();
+          await this.updateMovies(director, directorData.movies);
+
+          this.$router.replace({name: "Director", params: {id: this.id }});  
+        }
+        else {
+          const err = await res.json();
+          this.error = err.message;
+        }
+      },
+      async updateMovies(director, movies) {
+
+        movies.forEach(async (movie) => {
+          const updatedMovie = { ... movie, director: director };
+
+          const res = await fetch(`api/movies/${movie.id}`, {
+            method: "PUT",
+            headers: {
+              "Content-type": "application/json"
+            },
+            body: JSON.stringify(updatedMovie)
+          });
+        });
+      },
+       handleErrors(response) {
+        if(response.ok) {
+          return false;
+        }
+        else {
+          return true;
+        }
       }
     }
   }
 </script>
 
 <style scoped>
+  ul {
+    list-style: none;
+  }
 
+  .error {
+    font-weight: bold;
+  }
 </style>
