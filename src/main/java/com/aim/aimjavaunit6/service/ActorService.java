@@ -3,7 +3,8 @@ package com.aim.aimjavaunit6.service;
 import java.util.*;
 
 import com.aim.aimjavaunit6.model.Actor;
-import com.aim.aimjavaunit6.model.Movie;
+import com.aim.aimjavaunit6.model.response.AlreadyExistsException;
+import com.aim.aimjavaunit6.model.response.DoesNotExistException;
 import com.aim.aimjavaunit6.repository.ActorRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,7 +31,7 @@ public class ActorService
 
   public Actor getActor(Long id) 
   {
-    return actorRepository.findById(id).orElseThrow(() -> new IllegalStateException("Actor Does not exist."));
+    return actorRepository.findById(id).orElseThrow(() -> new DoesNotExistException("Actor Does not exist."));
   }
 
   public void addNewActor(Actor actor)
@@ -39,7 +40,7 @@ public class ActorService
 
     if(actorOptional.isPresent())
     {
-      throw new IllegalStateException("Actor already exists.");
+      throw new AlreadyExistsException("Actor already exists.");
     }
 
     actorRepository.save(actor);
@@ -51,16 +52,16 @@ public class ActorService
 
     if(!exists)
     {
-      throw new IllegalStateException("Actor with ID " + actorId + " does not exist.");
+      throw new DoesNotExistException("Actor with ID " + actorId + " does not exist.");
     }
 
     actorRepository.deleteById(actorId);
   }
 
   @Transactional
-  public void updateActor(Long actorId, String lastName, String firstName, List<Movie> moviesActed)
+  public void updateActor(Long actorId, String lastName, String firstName)
   {
-    Actor actor = actorRepository.findById(actorId).orElseThrow(() -> new IllegalStateException("Actor with ID " + actorId + " does not exist."));
+    Actor actor = actorRepository.findById(actorId).orElseThrow(() -> new DoesNotExistException("Actor with ID " + actorId + " does not exist."));
 
     if(lastName != null && lastName.length() > 0 && Objects.equals(actor.getLastName(), lastName))
     {
@@ -72,17 +73,17 @@ public class ActorService
       actor.setFirstName(firstName);
     }
 
-    if(moviesActed != null && moviesActed.size() > 0)
-    {
-      List<Movie> moviesCheck = actor.getMovies();
-      Collections.sort(moviesActed);
-      Collections.sort(moviesCheck);
+    // if(moviesActed != null && moviesActed.size() > 0)
+    // {
+    //   List<Movie> moviesCheck = actor.getMovies();
+    //   Collections.sort(moviesActed);
+    //   Collections.sort(moviesCheck);
 
-      if(moviesActed.equals(moviesCheck))
-      {
-        actor.setMovies(moviesActed);
-      }
-    }
+    //   if(moviesActed.equals(moviesCheck))
+    //   {
+    //     actor.setMovies(moviesActed);
+    //   }
+    // }
   }
 
 }

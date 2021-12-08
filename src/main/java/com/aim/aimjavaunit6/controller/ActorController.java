@@ -3,7 +3,6 @@ package com.aim.aimjavaunit6.controller;
 import java.util.*;
 
 import com.aim.aimjavaunit6.model.Actor;
-import com.aim.aimjavaunit6.model.Movie;
 import com.aim.aimjavaunit6.service.ActorService;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -50,9 +49,9 @@ public class ActorController
   }
 
   @PutMapping(path = "{actorId}")
-  public void updateActor(@PathVariable("actorId") Long actorId, @RequestParam(required = false) String lastName, @RequestParam(required = false) String firstName, @RequestParam(required = false) List<Movie> moviesActed)
+  public void updateActor(@PathVariable("actorId") Long actorId, @RequestParam(required = false) String lastName, @RequestParam(required = false) String firstName)
   {
-    actorService.updateActor(actorId, lastName, firstName, moviesActed);
+    actorService.updateActor(actorId, lastName, firstName);
   }
 
 }

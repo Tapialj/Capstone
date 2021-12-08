@@ -1,17 +1,17 @@
 <template>
   <div>
-    <h1>Edit Movie</h1>
+    <h1>Edit Director</h1>
 
-    <MovieForm :edit="editData" @save-movie="saveMovie" />
+    <DirectorForm :edit="editData" @save-director="saveDirector" />
   </div>
 </template>
 
 <script>
-  import MovieForm from "@/components/Forms/MovieForm.vue";
+  import DirectorForm from "@/components/Forms/DirectorForm.vue";
 
   export default {
     components: {
-      MovieForm,
+      DirectorForm,
     },
     props: [
       "id"
@@ -25,16 +25,16 @@
       };
     },
     methods: {
-      async saveMovie(movieData) {
-        await fetch(`api/movies/${this.id}`, {
+      async saveDirector(directorData) {
+        await fetch(`api/directors/${this.id}`, {
           method: "PUT",
           headers: {
             "Content-type": "application/json"
           },
-          body: JSON.stringify(movieData)
+          body: JSON.stringify(directorData)
         });
 
-        this.$router.replace({name: "MovieDetails", params: {id: this.id }});
+        this.$router.replace({name: "Director", params: {id: this.id }});
       }
     }
   }

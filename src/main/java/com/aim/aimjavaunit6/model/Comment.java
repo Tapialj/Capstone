@@ -2,12 +2,9 @@ package com.aim.aimjavaunit6.model;
 
 import javax.persistence.*;
 
-import com.fasterxml.jackson.annotation.*;
-
 
 @Entity
 @Table(name = "comments")
-@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class Comment implements Comparable<Comment>
 {
 

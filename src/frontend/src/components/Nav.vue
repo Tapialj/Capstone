@@ -1,10 +1,11 @@
 <template>
   <div class="flex" id="nav">
-    <h1>Our Movie DB</h1>
+    <h1>AIM Movie DB</h1>
 
     <nav>
       <router-link to="/">Home</router-link> |
       <router-link to="/movies">Movies</router-link> |
+      <router-link to="/directors">Directors</router-link> |
       <router-link to="/actors">Actors</router-link>
     </nav>
   </div>

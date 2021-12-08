@@ -17,9 +17,9 @@
 
       <div class="form-control">
         <label for="genre">Genre</label>
-        <select id="genre" name="genre" v-model="selectedGenre" @change="selectGenre">
+        <select id="genre" name="genre" v-model="selectedGenre">
           <option disabled selected value="">--Select--</option>
-          <option :key="genre.id" v-for="genre in genres" :value="genre.genre">{{ genre.genre }}</option>
+          <option :key="genre.id" v-for="genre in genres" :value="genre.id">{{ genre.genre }}</option>
         </select>
       </div>
 
@@ -40,9 +40,9 @@
 
       <div class="form-control">
         <label for="rating">MPAA Rating</label>
-        <select id="rating" name="rating" v-model="selectedRating" @change="selectRating">
+        <select id="rating" name="rating" v-model="selectedRating">
           <option disabled selected value="">--Select--</option>
-          <option :key="rating.id" v-for="rating in ratings" :value="rating.rating">{{ rating.rating }}</option>
+          <option :key="rating.id" v-for="rating in ratings" :value="rating.id">{{ rating.rating }}</option>
         </select>
       </div>
 
@@ -50,62 +50,75 @@
         <label for="director">Director</label>
         <div class="grid check-container">
           <div :key="director.id" class="checkbox" v-for="director in directors">
-            <input :key="director.id" type="radio" name="director" :id="[director.lastName, director.firstName]" :value="[director.lastName, director.firstName]" v-model="selectedDirector" @change="selectDirector" />
-            <label :for="[director.lastName, director.firstName]">{{ director.lastName }}, {{ director.firstName }}</label>
+            <input :key="director.id" type="radio" name="director" :id="[director.lastName, director.firstName]" :value="director.id" v-model="selectedDirector" />
+            <label :for="director.id">{{ director.lastName }}, {{ director.firstName }}</label>
           </div>
         </div>
 
         <div class="btn-container">
-          <Button title="Add New Director" type="button" />
+          <Button title="Add New Director" type="button" @btn-click="onDirectorModal" />
         </div>
+
+        <Modal v-if="directorModalOpen" @onModal="onDirectorModal">
+          <div class="error" v-if="areErrors">
+            <label>ERROR: </label>
+            <h4>{{ error }}</h4>
+          </div>
+          <DirectorForm :isModal="true" @save-director="saveDirector" />
+        </Modal>
       </div>
 
       <div class="form-control flex">
         <label for="actor">Actors</label>
         <div class="grid check-container">
           <div :key="actor.id" class="checkbox" v-for="actor in actors">
-            <input :key="actor.id" type="checkbox" name="actor" :id="[actor.lastName, actor.firstName]" :value="[actor.lastName, actor.firstName]" v-model="selectedActors" @change="selectActors" />
-            <label :for="[actor.lastName, actor.firstName]">{{ actor.lastName }}, {{ actor.firstName }}</label>
+            <input :key="actor.id" type="checkbox" name="actor" :id="[actor.lastName, actor.firstName]" :value="actor.id" v-model="selectedActors" />
+            <label :for="actor.id">{{ actor.lastName }}, {{ actor.firstName }}</label>
           </div>
         </div>
 
-        <span>Actors {{ selectedActors }}</span>
-
         <div class="btn-container">
-          <Button title="Add New Actor" type="button" />
+          <Button title="Add New Actor" type="button" @btn-click="onActorModal" />
         </div>
+
+        <!--<Modal v-if="actorModalOpen">
+          <ActorForm />
+        </Modal>-->
       </div>
 
       <Button title="Save Movie" />
-
-      <!--<Modal v-model="modalOpen">
-        <DirectorForm />
-        </Modal>-->
     </form>
 </template>
 
 <script>
   import Button from "@/components/Button.vue";
-  //import Modal from "@/components/Modal/Modal.vue";
+  import Modal from "@/components/Modal/Modal.vue";
+  import DirectorForm from "@/components/Forms/DirectorForm.vue";
+  //import ActorForm from "@/components/Forms/ActorForm.vue";
 
   export default {
-    name: "AddMovieForm",
+    name: "MovieForm",
     components: {
       Button,
-      //Modal,
+      Modal,
+      DirectorForm,
+      //ActorForm,
     },
     props: {
       edit: {
         default: function() {
-          return { edit: false };
+          return { 
+            edit: false 
+          };
         },
-        type: Object,
       },
 
     },
     data() {
       return {
         errors: [],
+        error: "",
+        areErrors: false,
         genres: [],
         ratings: [],
         directors: [],
@@ -115,21 +128,25 @@
           movieLength: "",
           releaseDate: "",
           trailerUrl: "",
-          selectedGenreObject: {},
-          selectedRatingObject: {},
-          selectedDirectorObject: {},
-          selectedActorObjects: [],
+          genre: {},
+          rating: {},
+          director: {},
+          actors: [],
         },
         selectedGenre: "",
         selectedRating: "",
         selectedDirector: "",
         selectedActors: [],
-        modalOpen: false,
+        directorModalOpen: false,
+        actorModalOpen: false,
       };
     },
     methods: {
-      openModal() {
-        this.modalOpen = !this.modalOpen;
+      onDirectorModal() {
+        this.directorModalOpen = !this.directorModalOpen;
+      },
+      onActorModal() {
+        this.actorModalOpen = !this.actorModalOpen;
       },
       checkForm() {
         this.errors = [];
@@ -173,8 +190,11 @@
         }
       },
       submitMovie() {
-        //this.$emit("save-movie", this.movie);
-        console.log(this.movie);
+        this.selectGenre();
+        this.selectRating();
+        this.selectDirector();
+        this.selectActors();
+        this.$emit("save-movie", this.movie);
       },
       validLength (movieDuration) {
         const test = +movieDuration;
@@ -194,33 +214,67 @@
       },
       selectGenre() {
         this.genres.map((genre) => {
-          if(genre.genre === this.selectedGenre) {
-            this.movie.selectedGenreObject = genre;
+          if(genre.id === this.selectedGenre) {
+            this.movie.genre = genre;
           }
         });
       },
       selectRating() {
         this.ratings.map((rating) => {
 
-          if(rating.rating === this.selectedRating) {
-            this.movie.selectedRatingObject = rating;
+          if(rating.id === this.selectedRating) {
+            this.movie.rating = rating;
           }
         });
       },
       selectActors() {
+        this.movie.actors = [];
+
         this.actors.map((actor) => {
-            if(actor.lastName === this.selectedActors[0] && actor.firstName === this.selectedActors[1]) {
-              this.movie.selectedActorObjects.push(actor);
-              console.log(actor);
+          this.selectedActors.forEach((selectedActor) => {
+            if(actor.id === selectedActor) {
+              this.movie.actors.push(actor);
             }
+          })
+            
         });
       },
       selectDirector() {
         this.directors.map((director) => {
-          if(director.lastName === this.selectedDirector[0] && director.firstName === this.selectedDirector[1]) {
-            this.movie.selectedDirectorObject = director;
+          if(director.id === this.selectedDirector) {
+            this.movie.director = director;
           }
         });
+      },
+      handleErrors(response) {
+        if(response.ok) {
+          return false;
+        }
+        else {
+          return true;
+        }
+      },
+      async saveDirector(directorData) {
+
+        const res = await fetch("api/directors", {
+          method: "POST",
+          headers: {
+            "Content-type": "application/json"
+          },
+          body: JSON.stringify(directorData.director)
+        });
+
+        this.areErrors = this.handleErrors(res)
+
+        if(!this.areErrors) {
+          const director = await res.json();
+          this.directors = [...this.directors, director];
+          this.directorModalOpen = !this.directorModalOpen;
+        }
+        else {
+          const err = await res.json();
+          this.error = err.message;
+        }
       },
       async getGenres() {
         const res = await fetch("api/genres");
@@ -261,9 +315,18 @@
       this.ratings = await this.getRatings();
       this.directors = await this.getDirectors();
       this.actors = await this.getActors();
+    },
+    async beforeMount() {
+      if(this.edit.edit) {
+        this.movie = await this.getMovieDetails(this.edit.id);
+        this.selectedGenre = this.movie.genre.id;
+        this.selectedRating = this.movie.rating.id;
+        this.selectedDirector = this.movie.director.id;
+        this.movie.actors.forEach((actor) => {
+          this.selectedActors.push(actor.id)
+        });
 
-      if(this.edit.edit === true) {
-        this.movie = await this.getMovieDetails(this.editData.id);
+        this.sel
       }
     }
   }

@@ -1,14 +1,21 @@
 <template>
-  <div class="backdrop" @click="on-modal" />
+  <div class="backdrop" @click="onModal">
+    <slot>
 
+    </slot>
   </div>
 </template>
 
 <script>
   export default {
     name: "Backdrop",
+    methods: {
+      onModal() {
+        this.$emit("onModal");
+      }
+    },
     emits: [
-      "on-modal"
+      "onModal"
     ],
   }
 </script>
@@ -21,6 +28,6 @@
     height: 100%;
     width: 100%;
     background-color: rgba(0, 0, 0, 0.75);
-    z-index: 1;
+    z-index: 10;
   }
 </style>

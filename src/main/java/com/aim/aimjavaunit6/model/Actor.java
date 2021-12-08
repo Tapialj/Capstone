@@ -4,12 +4,10 @@ import java.util.*;
 import javax.persistence.*;
 
 import com.fasterxml.jackson.annotation.*;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 
 @Entity
 @Table(name = "actors")
-@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class Actor implements Comparable<Actor>
 {
   
@@ -22,7 +20,7 @@ public class Actor implements Comparable<Actor>
   private String lastName;
   @Column(name = "first_name")
   private String firstName;
-  @ManyToMany(mappedBy = "actors", fetch = FetchType.EAGER, cascade = {CascadeType.MERGE, CascadeType.PERSIST})
+  @ManyToMany(mappedBy = "actors")//, fetch = FetchType.EAGER, cascade = {CascadeType.MERGE, CascadeType.PERSIST})
   @JsonIgnore
   private List<Movie> movies;
 
@@ -38,19 +36,11 @@ public class Actor implements Comparable<Actor>
     this.firstName = firstName;
   }
 
-  public Actor(String lastName, String firstName, List<Movie> movies)
-  {
-    this.lastName = lastName;
-    this.firstName = firstName;
-    this.movies = movies;
-  }
-
-  public Actor(Long id, String lastName, String firstName, List<Movie> movies)
+  public Actor(Long id, String lastName, String firstName)
   {
     this.id = id;
     this.lastName = lastName;
     this.firstName = firstName;
-    this.movies = movies;
   }
 
   @Override

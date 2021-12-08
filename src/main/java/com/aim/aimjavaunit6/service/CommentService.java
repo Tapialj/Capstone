@@ -42,4 +42,10 @@ public class CommentService
     return comment;
   }
 
+  @Transactional
+  public void updateComment()
+  {
+    
+  }
+
 }

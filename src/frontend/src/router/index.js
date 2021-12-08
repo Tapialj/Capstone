@@ -32,7 +32,46 @@ const routes = [
   {
     path: '/actors',
     name: 'Actors',
-    component: () => import(/* webpackChunkName: "actors" */ '../views/Actors.vue')
+    component: () => import(/* webpackChunkName: "actors" */ '../views/actors/Actors.vue')
+  },
+  {
+    path: '/actor/:id',
+    name: 'ActorDetails',
+    component: () => import(/* webpackChunkName: "actor" */ '../views/actors/ActorDetails.vue'),
+    props: true
+  },
+  {
+    path: '/add-actor',
+    name: 'AddActor',
+    component: () => import(/* webpackChunkName: "addActor" */ '../views/actors/AddActor.vue')
+  },
+  {
+    path: '/edit-actor/:id',
+    name: "EditActor",
+    component: () => import(/* webwebpackChunkName: "editActor" */ '../views/actors/EditActor.vue'),
+    props: true
+  },
+  {
+    path: '/directors',
+    name: 'Directors',
+    component: () => import(/* webpackChunkName: "directors" */ '../views/director/Directors.vue')
+  },
+  {
+    path: '/director/:id',
+    name: 'DirectorDetails',
+    component: () => import(/* webpackChunkName: "director" */ '../views/director/DirectorDetails.vue'),
+    props: true
+  },
+  {
+    path: '/add-director',
+    name: 'AddDirector',
+    component: () => import(/* webpackChunkName: "addDirector" */ '../views/director/AddDirector.vue')
+  },
+  {
+    path: '/edit-director/:id',
+    name: "EditDirector",
+    component: () => import(/* webwebpackChunkName: "editDirector" */ '../views/director/EditDirector.vue'),
+    props: true
   },
   //404 catchall
   {

@@ -4,12 +4,10 @@ import java.util.*;
 import javax.persistence.*;
 
 import com.fasterxml.jackson.annotation.*;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 
 @Entity
 @Table(name = "directors")
-@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class Director 
 {
   
@@ -22,7 +20,7 @@ public class Director
   private String lastName;
   @Column(name = "first_name")
   private String firstName;
-  @OneToMany(fetch = FetchType.LAZY, mappedBy = "director", cascade = CascadeType.ALL)
+  @OneToMany(mappedBy = "director")//, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
   @JsonIgnore
   private List<Movie> movies;
   

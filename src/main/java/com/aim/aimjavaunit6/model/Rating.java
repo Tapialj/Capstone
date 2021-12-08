@@ -4,11 +4,10 @@ import java.util.*;
 import javax.persistence.*;
 
 import com.fasterxml.jackson.annotation.*;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+
 
 @Entity
 @Table(name = "ratings")
-@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class Rating 
 {
   
@@ -17,7 +16,7 @@ public class Rating
   private Long id;
   @Column(name = "rating")
   private String rating;
-  @OneToMany(mappedBy = "rating", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+  @OneToMany(mappedBy = "rating")//, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
   @JsonIgnore
   private List<Movie> movies;
   

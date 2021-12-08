@@ -11,8 +11,8 @@
       </thead>
 
       <tbody>
-        <tr :key="movie.id" v-for="movie in movies">
-          <Movie :movie="movie" />
+        <tr :key="movie.id" v-for="(movie, index) in movies">
+          <Movie :movie="movie" :listNumber="++index" @onDelete="onDelete" />
         </tr>
       </tbody>
     </table>
@@ -20,16 +20,24 @@
 </template>
 
 <script>
-  import Movie from "@/components/Movie.vue";
+  import Movie from "@/components/movie/Movie.vue";
 
   export default {
-    name: "Table",
-    props: {
-      movies: Array,
-    },
+    name: "MovieTable",
     components: {
       Movie,
     },
+    props: {
+      movies: Array,
+    },
+    methods: {
+      onDelete(movie) {
+        this.$emit("onDelete", movie);
+      },
+    },
+    emits: [
+      "onDelete"
+    ]
   }
 </script>
 

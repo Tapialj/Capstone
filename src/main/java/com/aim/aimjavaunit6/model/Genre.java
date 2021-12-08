@@ -4,12 +4,10 @@ import java.util.*;
 import javax.persistence.*;
 
 import com.fasterxml.jackson.annotation.*;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 
 @Entity
 @Table(name = "genres")
-@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class Genre 
 {
   
@@ -20,7 +18,7 @@ public class Genre
   private Long id;
   @Column(name = "genre")
   private String genre;
-  @OneToMany(mappedBy = "genre", fetch = FetchType.LAZY)
+  @OneToMany(mappedBy = "genre")//, fetch = FetchType.LAZY)
   @JsonIgnore
   private List<Movie> movies;
   

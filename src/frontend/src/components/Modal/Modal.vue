@@ -1,27 +1,33 @@
 <template>
-  <div class="modal" v-show="open">
-    <slot>
+  <Backdrop @onModal="onModal">
+    <div class="modal" @click.stop="">
+      <slot>
 
-    </slot>
-  </div>
+      </slot>
+    </div>
+  </Backdrop>
 </template>
 
 <script>
-  
+  import Backdrop from "./Backdrop.vue";
   
   export default {
     name: "Modal",
     components: {
-
+      Backdrop
     },
     props: {
-      modalForm: String,
-      open: {
-        required: true,
+      // open: {
+      //   required: true,
+      // }
+    },
+    methods: {
+      onModal() {
+        this.$emit("onModal");
       }
     },
     emits: [
-      "on-modal"
+      "onModal"
     ],
   }
 </script>
@@ -32,10 +38,11 @@
     border-radius: 6px;
     background-color: white;
     padding: 1rem;
-    width: 30rem;
-    z-index: 10;
+    width: 75%;
+    z-index: 100;
     position: fixed;
-    top: 20vh;
-    left: calc(50% - 15rem);
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
   }
 </style>

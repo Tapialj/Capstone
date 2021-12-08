@@ -4,6 +4,8 @@ import java.util.*;
 
 import com.aim.aimjavaunit6.model.Director;
 import com.aim.aimjavaunit6.model.Movie;
+import com.aim.aimjavaunit6.model.response.AlreadyExistsException;
+import com.aim.aimjavaunit6.model.response.DoesNotExistException;
 import com.aim.aimjavaunit6.repository.DirectorRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,19 +32,26 @@ public class DirectorService
 
   public Director getDirector(Long id) 
   {
-    return directorRepository.findById(id).orElseThrow(() -> new IllegalStateException("Director Does not exist."));
+    return directorRepository.findById(id).orElseThrow(() -> new DoesNotExistException("Director Does not exist."));
   }
 
-  public void addNewDirector(Director director)
+  public List<Movie> getDirectorMovies(Long id)
+  {
+    return directorRepository.findMovieByDirectorId(id);
+  }
+
+  public Director addNewDirector(Director director)
   {
     Optional<Director> directorOptional = directorRepository.findDirectorByName(director.getLastName(), director.getFirstName());
 
     if(directorOptional.isPresent())
     {
-      throw new IllegalStateException("Director already exists.");
+      throw new AlreadyExistsException("Director already exists.");
     }
 
     directorRepository.save(director);
+
+    return director;
   }
 
   public void deleteDirector(Long directorId)
@@ -51,16 +60,16 @@ public class DirectorService
 
     if(!exists)
     {
-      throw new IllegalStateException("Director with ID " + directorId + " does not exist.");
+      throw new DoesNotExistException("Director with ID " + directorId + " does not exist.");
     }
 
     directorRepository.deleteById(directorId);
   }
 
   @Transactional
-  public void updateDirector(Long directorId, String lastName, String firstName, List<Movie> moviesDirected)
+  public void updateDirector(Long directorId, String lastName, String firstName)//, List<Movie> moviesDirected)
   {
-    Director director = directorRepository.findById(directorId).orElseThrow(() -> new IllegalStateException("Director with ID " + directorId + " does not exist."));
+    Director director = directorRepository.findById(directorId).orElseThrow(() -> new DoesNotExistException("Director with ID " + directorId + " does not exist."));
 
     if(lastName != null && lastName.length() > 0 && Objects.equals(director.getLastName(), lastName))
     {
@@ -72,17 +81,17 @@ public class DirectorService
       director.setFirstName(firstName);
     }
 
-    if(moviesDirected != null && moviesDirected.size() > 0)
-    {
-      List<Movie> moviesCheck = director.getMovies();
-      Collections.sort(moviesDirected);
-      Collections.sort(moviesCheck);
+    // if(moviesDirected != null && moviesDirected.size() > 0)
+    // {
+    //   List<Movie> moviesCheck = director.getMovies();
+    //   Collections.sort(moviesDirected);
+    //   Collections.sort(moviesCheck);
 
-      if(moviesDirected.equals(moviesCheck))
-      {
-        director.setMovies(moviesDirected);
-      }
-    }
+    //   if(moviesDirected.equals(moviesCheck))
+    //   {
+    //     director.setMovies(moviesDirected);
+    //   }
+    // }
   }
 
 }

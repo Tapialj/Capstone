@@ -4,13 +4,13 @@ import java.time.*;
 import java.util.*;
 import javax.persistence.*;
 
-import com.fasterxml.jackson.annotation.*;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+//import com.fasterxml.jackson.annotation.*;
+//import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 
 @Entity
 @Table(name = "movies")
-@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
+//@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class Movie implements Comparable<Movie>
 {
   
@@ -28,17 +28,13 @@ public class Movie implements Comparable<Movie>
   @Column(name = "trailer_url")
   private String trailerUrl;
   @ManyToOne
-  @JoinColumn(name = "genre_id", referencedColumnName = "id", nullable = false)//insertable = false, updatable = false)
+  @JoinColumn(name = "genre_id", referencedColumnName = "id", nullable = false)
   private Genre genre;
-  // @Column(name = "genre_id")
-  // private Long genreId;
   @ManyToOne
-  @JoinColumn(name = "rating_id", referencedColumnName = "id", nullable = false)//insertable = false, updatable = false)
+  @JoinColumn(name = "rating_id", referencedColumnName = "id", nullable = false)
   private Rating rating;
-  // @Column(name = "rating_id")
-  // private Long ratingId;
   @ManyToOne
-  @JoinColumn(name = "director_id", referencedColumnName = "id", nullable = false)//insertable = false, updatable = false)
+  @JoinColumn(name = "director_id", referencedColumnName = "id", nullable = false)
   private Director director;
   @ManyToMany(fetch = FetchType.EAGER, cascade = {CascadeType.MERGE, CascadeType.PERSIST})
   @JoinTable(name = "movie_cast", 

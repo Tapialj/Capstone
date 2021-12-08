@@ -36,11 +36,17 @@ public class DirectorController
     return directorService.getDirector(directorId);
   }
 
+  @GetMapping(path = "{directorId}/movies")
+  public List<Movie> getDirectorMovies(@PathVariable("directorId") Long directorId)
+  {
+    return directorService.getDirectorMovies(directorId);
+  }
+
   @PostMapping
   @ResponseStatus(HttpStatus.CREATED)
-  public void createDirector(@RequestBody Director director)
+  public Director createDirector(@RequestBody Director director)
   {
-    directorService.addNewDirector(director);
+    return directorService.addNewDirector(director);
   }
 
   @DeleteMapping(path = "{directorId}")
@@ -50,9 +56,9 @@ public class DirectorController
   }
 
   @PutMapping(path = "{directorId}")
-  public void updateDirector(@PathVariable("directorId") Long directorId, @RequestParam(required = false) String lastName, @RequestParam(required = false) String firstName, @RequestParam(required = false) List<Movie> moviesDirected)
+  public void updateDirector(@PathVariable("directorId") Long directorId, @RequestParam(required = false) String lastName, @RequestParam(required = false) String firstName)
   {
-    directorService.updateDirector(directorId, lastName, firstName, moviesDirected);
+    directorService.updateDirector(directorId, lastName, firstName);
   }
 
 }

@@ -1,7 +1,6 @@
 package com.aim.aimjavaunit6.controller;
 
 import java.util.*;
-import java.time.*;
 
 import com.aim.aimjavaunit6.model.*;
 import com.aim.aimjavaunit6.service.MovieService;
@@ -38,9 +37,9 @@ public class MovieController
 
   @PostMapping
   @ResponseStatus(HttpStatus.CREATED)
-  public void createMovie(@RequestBody Movie movie)
+  public Movie createMovie(@RequestBody Movie movie)
   {
-    movieService.addNewMovie(movie);
+    return movieService.addNewMovie(movie);
   }
 
   @DeleteMapping(path = "{movieId}")
@@ -50,9 +49,9 @@ public class MovieController
   }
 
   @PutMapping(path = "{movieId}")
-  public void updateMovie(@PathVariable("movieId") Long movieId, @RequestParam(required = false) String title, @RequestParam(required = false) int movieLength, @RequestParam(required = false) LocalDate releaseDate, @RequestParam(required = false) String trailerUrl, @RequestParam(required = false) Genre genre, @RequestParam(required = false) Rating rating, @RequestParam(required = false) Director director, @RequestParam(required = false) List<Actor> actors, @RequestParam(required = false) List<Comment> comments)
+  public Movie updateMovie(@RequestBody Movie movie)
   {
-    movieService.updateMovie(movieId, title, movieLength, releaseDate, trailerUrl, genre, rating, director, actors, comments);
+    return movieService.updateMovie(movie);
   }
 
 }

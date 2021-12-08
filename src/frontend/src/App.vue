@@ -18,6 +18,7 @@
 <style>
   a {
     text-decoration: none;
+    color: inherit;
   }
 
   h1 {
@@ -84,6 +85,16 @@
   .movies,
   .movie-details {
     padding: 2.5rem
+  }
+
+  .route h3 {
+    font-weight: 200;
+    font-size: 1.1rem;
+    text-align: left;
+  }
+
+  .route h3 span {
+    color: #007582;
   }
 
   #app {

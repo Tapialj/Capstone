@@ -2,16 +2,16 @@
   <div>
     <h1>Add Movie</h1>
 
-    <AddMovieForm :edit="editData" @save-movie="saveMovie" />
+    <MovieForm :edit="editData" @save-movie="saveMovie" />
   </div>
 </template>
 
 <script>
-  import AddMovieForm from "@/components/AddMovieForm.vue";
+  import MovieForm from "@/components/Forms/MovieForm.vue";
 
   export default {
     components: {
-      AddMovieForm,
+      MovieForm,
     },
     data() {
       return {
