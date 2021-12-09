@@ -3,6 +3,7 @@ package com.aim.aimjavaunit6.controller;
 import java.util.*;
 
 import com.aim.aimjavaunit6.model.Actor;
+import com.aim.aimjavaunit6.model.Movie;
 import com.aim.aimjavaunit6.service.ActorService;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,6 +34,12 @@ public class ActorController
   public Actor getActor(@PathVariable("actorId") Long actorId)
   {
     return actorService.getActor(actorId);
+  }
+
+  @GetMapping(path = "{actorId}/movies")
+  public List<Movie> getActorMovies(@PathVariable("actorId") Long actorId)
+  {
+    return actorService.getActorMovies(actorId);
   }
 
   @PostMapping

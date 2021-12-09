@@ -3,6 +3,7 @@ package com.aim.aimjavaunit6.service;
 import java.util.*;
 
 import com.aim.aimjavaunit6.model.Actor;
+import com.aim.aimjavaunit6.model.Movie;
 import com.aim.aimjavaunit6.model.response.AlreadyExistsException;
 import com.aim.aimjavaunit6.model.response.DoesNotExistException;
 import com.aim.aimjavaunit6.repository.ActorRepository;
@@ -32,6 +33,11 @@ public class ActorService
   public Actor getActor(Long id) 
   {
     return actorRepository.findById(id).orElseThrow(() -> new DoesNotExistException("Actor Does not exist."));
+  }
+
+  public List<Movie> getActorMovies(Long id)
+  {
+    return actorRepository.findMovieByMovieCast(id);
   }
 
   public Actor addNewActor(Actor actor)

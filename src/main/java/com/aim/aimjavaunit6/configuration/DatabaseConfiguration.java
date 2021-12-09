@@ -128,13 +128,24 @@ public class DatabaseConfiguration
         "Ben"
       );
 
-      
+      // leonardoDicaprio = actorRepository.save(leonardoDicaprio);
+      // samWorthington  = actorRepository.save(samWorthington);
+      // sigourneyWeaver = actorRepository.save(sigourneyWeaver);
+      // christianBale = actorRepository.save(christianBale);
+      // heathLedger = actorRepository.save(heathLedger);
+      // aaronEckhart = actorRepository.save(aaronEckhart);
+      // kenWatanabe = actorRepository.save(kenWatanabe);
+      // elliotPage = actorRepository.save(elliotPage);
+      // markRuffalo = actorRepository.save(markRuffalo);
+      // benKingsley = actorRepository.save(benKingsley);
+
+      actorRepository.saveAll(List.of(leonardoDicaprio, samWorthington, sigourneyWeaver, zoeSaldana, christianBale, heathLedger, aaronEckhart, kenWatanabe, elliotPage, markRuffalo, benKingsley));
 
       List<Actor> avatarActors = Arrays.asList(samWorthington, sigourneyWeaver, zoeSaldana);
       List<Actor> darkKnightActors = Arrays.asList(christianBale, aaronEckhart, heathLedger);
       List<Actor> inceptionActors = Arrays.asList(leonardoDicaprio, kenWatanabe, elliotPage);
       List<Actor> shutterIslandActors = Arrays.asList(leonardoDicaprio, markRuffalo, benKingsley);
-
+      
 
       Movie avatar = new Movie(
         "Avatar",
@@ -181,8 +192,6 @@ public class DatabaseConfiguration
       );
 
       movieRepository.saveAll(List.of(avatar, theDarkKnight, inception, shutterIsland));
-      actorRepository.saveAll(List.of(leonardoDicaprio, samWorthington, sigourneyWeaver, christianBale, heathLedger, aaronEckhart, kenWatanabe, elliotPage, markRuffalo, benKingsley));
-      
     };
   }
 

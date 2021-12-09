@@ -36,7 +36,7 @@ public class Movie implements Comparable<Movie>
   @ManyToOne
   @JoinColumn(name = "director_id", referencedColumnName = "id", nullable = false)
   private Director director;
-  @ManyToMany(fetch = FetchType.EAGER, cascade = {CascadeType.MERGE, CascadeType.PERSIST})
+  @ManyToMany(fetch = FetchType.LAZY)//cascade = {CascadeType.MERGE, CascadeType.PERSIST})
   @JoinTable(name = "movie_cast", 
     joinColumns = @JoinColumn(name = "movie_id", referencedColumnName = "id"),
     inverseJoinColumns = @JoinColumn(name = "actor_id", referencedColumnName = "id"))

@@ -20,7 +20,7 @@ public class Actor implements Comparable<Actor>
   private String lastName;
   @Column(name = "first_name")
   private String firstName;
-  @ManyToMany(mappedBy = "actors")//, fetch = FetchType.EAGER, cascade = {CascadeType.MERGE, CascadeType.PERSIST})
+  @ManyToMany(mappedBy = "actors")//, cascade = {CascadeType.MERGE, CascadeType.PERSIST})
   @JsonIgnore
   private List<Movie> movies;
 
