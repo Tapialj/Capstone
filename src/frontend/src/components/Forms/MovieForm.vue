@@ -181,9 +181,9 @@
           this.errors.push("Rating is Required")
         }
 
-        if(!this.selectedDirector || this.selectedDirector === "") {
-          this.errors.push("Director is Required");
-        }
+        // if(!this.selectedDirector || this.selectedDirector === "") {
+        //   this.errors.push("Director is Required");
+        // }
 
         if(!this.errors.length) {
           this.submitMovie();
@@ -325,8 +325,6 @@
         this.movie.actors.forEach((actor) => {
           this.selectedActors.push(actor.id)
         });
-
-        this.sel
       }
     }
   }

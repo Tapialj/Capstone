@@ -84,7 +84,7 @@
     },
     async created() {
       this.movie = await this.fetchMovie(this.id);
-
+      
       //eslint-disable-next-line
       const reg = new RegExp('.*?=\s*(.*)');
       const split = reg.exec(this.movie.trailerUrl);

@@ -38,7 +38,7 @@
         });
 
         this.areErrors = this.handleErrors(res);
-        console.log(movieData);
+
         if(!this.areErrors) {
           this.$router.replace({name: "Movies"}); 
         }
