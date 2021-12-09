@@ -56,10 +56,10 @@
         }
       },
       async updateMovies(director, movies) {
-
+        
         movies.forEach(async (movie) => {
           const updatedMovie = { ... movie, director: director };
-
+          
           const res = await fetch(`api/movies/${movie.id}`, {
             method: "PUT",
             headers: {

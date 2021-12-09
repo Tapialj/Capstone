@@ -27,7 +27,7 @@
         <label for="movie">Movies</label>
         <div class="grid check-container">
           <div :key="movie.id" class="checkbox" v-for="movie in movies">
-            <input :key="movie.id" type="checkbox" name="movie" :id="[movie.lastName, movie.firstName]" :checked="directedBy(movie.director.id)" :value="movie.id" v-model="selectedMovies" />
+            <input :key="movie.id" type="checkbox" name="movie" :id="[movie.lastName, movie.firstName]" :value="movie.id" v-model="selectedMovies" /><!--:checked="directedBy(movie.director.id)"-->
             <label :for="movie.id">{{ movie.title }}</label>
           </div>
         </div>
@@ -96,11 +96,15 @@
       },
       submitDirector() {
         this.selectMovies();
-
+        
         this.$emit("save-director", { director: this.director, movies: this.selectedMovieObjects });
       },
       selectMovies() {
-        this.selectedMovieObjects = this.movies.filter((movie) => !this.selectedMovies.indexOf(movie.id));
+        this.selectedMovieObjects = this.movies.filter((movie) => {
+          if(this.selectedMovies.includes(movie.id)) {
+            return movie;
+          }
+        });
       },
       async getMovies() {
         const res = await fetch("api/movies");
@@ -123,8 +127,13 @@
 
       if(this.edit.edit) {
         this.director = await this.getDirectorDetails(this.edit.id);
+        this.movies.forEach((movie) => {
+          if(movie.director.id === this.director.id) {
+            this.selectedMovies.push(movie.id)
+          }
+        });
       }
-    }
+    },
   }
 </script>
 

@@ -9,7 +9,7 @@
 
     <Modal v-if="deleteModalOpen" @onModal="onDeleteModal">
       <p>
-        Are you sure you want to delete {{ directorDelete.title }}?
+        Are you sure you want to delete {{ directorDelete.firstName }} {{ directorDelete.lastName }}?
       </p>
 
       <Button title="Delete" @btn-click="deleteDirector(directorDelete.id)" />
