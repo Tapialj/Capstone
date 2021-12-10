@@ -46,7 +46,8 @@
 
         if(!this.areErrors) {
           const director = await res.json();
-          await this.updateMovies(director, directorData.movies);
+          await this.updateAddMovies(director, directorData.movies);
+          await this.updateRemoveMovies(directorData.moviesRemoved);
 
           this.$router.replace({name: "DirectorDetails", params: {id: this.id }});  
         }
@@ -55,10 +56,24 @@
           this.error = err.message;
         }
       },
-      async updateMovies(director, movies) {
+      async updateAddMovies(director, movies) {
         
         movies.forEach(async (movie) => {
           const updatedMovie = { ... movie, director: director };
+          
+          const res = await fetch(`api/movies/${movie.id}`, {
+            method: "PUT",
+            headers: {
+              "Content-type": "application/json"
+            },
+            body: JSON.stringify(updatedMovie)
+          });
+        });
+      },
+      async updateRemoveMovies(movies) {
+        
+        movies.forEach(async (movie) => {
+          const updatedMovie = { ... movie, director: {} };
           
           const res = await fetch(`api/movies/${movie.id}`, {
             method: "PUT",

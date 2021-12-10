@@ -67,7 +67,7 @@
       }
     },
     async created() {
-      this.director = await this.fetchActor(this.id);
+      this.actor = await this.fetchActor(this.id);
       this.movies = await this.fetchMovies(this.id);
     }
   }

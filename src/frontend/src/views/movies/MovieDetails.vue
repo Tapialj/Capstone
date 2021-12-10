@@ -49,17 +49,21 @@
       </aside>
     </div>
   </div>
+
+  <CommentSection :comments="movie.comments" />
 </template>
 
 <script>
   import moment from "moment";
   import Button from "@/components/Button.vue";
   import ListItem from "@/components/ListItem.vue";
+  import CommentSection from "@/components/comments/CommentSection.vue";
 
   export default {
     components: {
       Button,
       ListItem,
+      CommentSection,
     },
     props: [
       "id"

@@ -56,7 +56,7 @@
         </div>
 
         <div class="btn-container">
-          <Button title="Add New Director" type="button" @btn-click="onDirectorModal" />
+          <SmallButton title="Add New Director" type="button" @btn-click="onDirectorModal" />
         </div>
 
         <Modal v-if="directorModalOpen" @onModal="onDirectorModal">
@@ -64,6 +64,7 @@
             <label>ERROR: </label>
             <h4>{{ error }}</h4>
           </div>
+
           <DirectorForm :isModal="true" @save-director="saveDirector" />
         </Modal>
       </div>
@@ -78,12 +79,17 @@
         </div>
 
         <div class="btn-container">
-          <Button title="Add New Actor" type="button" @btn-click="onActorModal" />
+          <SmallButton title="Add New Actor" type="button" @btn-click="onActorModal" />
         </div>
 
-        <!--<Modal v-if="actorModalOpen">
-          <ActorForm />
-        </Modal>-->
+        <Modal v-if="actorModalOpen" @onModal="onActorModal">
+          <div class="error" v-if="areErrors">
+            <label>ERROR: </label>
+            <h4>{{ error }}</h4>
+          </div>
+
+          <ActorForm :isModal="true" @save-director="saveActor" />
+        </Modal>
       </div>
 
       <Button title="Save Movie" />
@@ -92,6 +98,7 @@
 
 <script>
   import Button from "@/components/Button.vue";
+  import SmallButton from "@/components/SmallButton.vue";
   import Modal from "@/components/Modal/Modal.vue";
   import DirectorForm from "@/components/Forms/DirectorForm.vue";
   //import ActorForm from "@/components/Forms/ActorForm.vue";
@@ -100,6 +107,7 @@
     name: "MovieForm",
     components: {
       Button,
+      SmallButton,
       Modal,
       DirectorForm,
       //ActorForm,
@@ -270,6 +278,28 @@
           const director = await res.json();
           this.directors = [...this.directors, director];
           this.directorModalOpen = !this.directorModalOpen;
+        }
+        else {
+          const err = await res.json();
+          this.error = err.message;
+        }
+      },
+      async saveActor(actorData) {
+
+        const res = await fetch("api/actors", {
+          method: "POST",
+          headers: {
+            "Content-type": "application/json"
+          },
+          body: JSON.stringify(actorData.actor)
+        });
+
+        this.areErrors = this.handleErrors(res)
+
+        if(!this.areErrors) {
+          const actor = await res.json();
+          this.actors = [...this.actors, actor];
+          this.actorModalOpen = !this.actorModalOpen;
         }
         else {
           const err = await res.json();

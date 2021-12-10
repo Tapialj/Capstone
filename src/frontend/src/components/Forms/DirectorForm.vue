@@ -27,7 +27,7 @@
         <label for="movie">Movies</label>
         <div class="grid check-container">
           <div :key="movie.id" class="checkbox" v-for="movie in movies">
-            <input :key="movie.id" type="checkbox" name="movie" :id="[movie.lastName, movie.firstName]" :value="movie.id" v-model="selectedMovies" /><!--:checked="directedBy(movie.director.id)"-->
+            <input :key="movie.id" type="checkbox" name="movie" :id="[movie.lastName, movie.firstName]" :value="movie.id" v-model="selectedMovies" />
             <label :for="movie.id">{{ movie.title }}</label>
           </div>
         </div>
@@ -68,7 +68,10 @@
           firstName: "",
         },
         selectedMovies: [],
+        removedMovies: [],
+        checkRemoved: [],
         selectedMovieObjects: [],
+        removedMovieObjects: [],
       };
     },
     methods: {
@@ -96,13 +99,23 @@
       },
       submitDirector() {
         this.selectMovies();
+        this.removeMovies();
         
-        this.$emit("save-director", { director: this.director, movies: this.selectedMovieObjects });
+        this.$emit("save-director", { director: this.director, movies: this.selectedMovieObjects, moviesRemoved: this.removedMovieObjects });
       },
       selectMovies() {
         this.selectedMovieObjects = this.movies.filter((movie) => {
           if(this.selectedMovies.includes(movie.id)) {
             return movie;
+          }
+        });
+      },
+      removeMovies() {
+        this.removedMovieObjects = this.movies.filter((movie) => {
+          if(this.checkRemoved.includes(movie.id)) {
+            if(!this.selectedMovies.includes(movie.id)) {
+              return movie;
+            }
           }
         });
       },
@@ -132,6 +145,8 @@
             this.selectedMovies.push(movie.id)
           }
         });
+
+        this.checkRemoved = this.selectedMovies;
       }
     },
   }
