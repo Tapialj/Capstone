@@ -34,7 +34,7 @@ public class Movie implements Comparable<Movie>
   @JoinColumn(name = "rating_id", referencedColumnName = "id", nullable = false)
   private Rating rating;
   @ManyToOne
-  @JoinColumn(name = "director_id", referencedColumnName = "id", nullable = false)
+  @JoinColumn(name = "director_id", referencedColumnName = "id")
   private Director director;
   @ManyToMany(fetch = FetchType.LAZY)//cascade = {CascadeType.MERGE, CascadeType.PERSIST})
   @JoinTable(name = "movie_cast", 
