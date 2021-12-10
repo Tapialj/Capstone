@@ -73,6 +73,11 @@ const routes = [
     component: () => import(/* webwebpackChunkName: "editDirector" */ '../views/director/EditDirector.vue'),
     props: true
   },
+  {
+    path: '/test',
+    name: "Test",
+    component: () => import(/* webwebpackChunkName: "test" */ '../views/Test.vue'),
+  },
   //404 catchall
   {
     path: '/:catchAll(.*)',
