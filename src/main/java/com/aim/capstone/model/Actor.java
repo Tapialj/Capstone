@@ -23,6 +23,8 @@ public class Actor implements Comparable<Actor>
   @ManyToMany(mappedBy = "actors")//, cascade = {CascadeType.MERGE, CascadeType.PERSIST})
   @JsonIgnore
   private List<Movie> movies;
+  // @OneToMany(mappedBy = "actor", cascade = CascadeType.ALL)
+  // private List<Comment> comments;
 
 
   public Actor()

@@ -49,8 +49,16 @@
       </aside>
     </div>
   </div>
+  <div class="comments">
+    <h1>Comments</h1>
+    
+    <div class="error" v-if="areErrors">
+      <label>ERROR: </label>
+      <h4>{{ error }}</h4>
+    </div>
 
-  <CommentSection :comments="movie.comments" />
+    <CommentSection :comments="movie.comments" :parentId="movie.id" @addComment="updateComments" />
+  </div>
 </template>
 
 <script>
@@ -76,6 +84,28 @@
       };
     },
     methods: {
+      async updateComments(comment) {
+        comment.movieId = this.movie.id;
+
+        const res = await fetch("api/comments/movies", {
+          method: "POST",
+          headers: {
+            "Content-type": "application/json"
+          },
+          body: JSON.stringify(comment)
+        });
+
+        this.areErrors = this.handleErrors(res);
+
+        if(!this.areErrors) {
+          const comment = await res.json();
+          this.movie.comments = [comment, ...this.movie.comments];
+        }
+        else {
+          const err = res.json();
+          this.error = err.message;
+        }
+      },
       editMovie(id) {
         this.$router.push({name: "EditMovie", params: { id: id }});
       },
@@ -84,7 +114,15 @@
         const data = await res.json();
 
         return data;
-      }
+      },
+      handleErrors(response) {
+        if(response.ok) {
+          return false;
+        }
+        else {
+          return true;
+        }
+      },
     },
     async created() {
       this.movie = await this.fetchMovie(this.id);
@@ -101,6 +139,8 @@
   h1 {
     font-weight: bold;
   }
+
+
 
   .subtitle {
     font-weight: 400;

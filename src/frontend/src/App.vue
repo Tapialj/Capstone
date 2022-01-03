@@ -16,6 +16,17 @@
 </script>
 
 <style>
+  *, *::before, *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+
+  html,
+  body {
+    background: #d3d3d3;
+  }
+
   a {
     text-decoration: none;
     color: inherit;

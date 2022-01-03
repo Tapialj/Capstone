@@ -23,6 +23,8 @@ public class Director
   @OneToMany(mappedBy = "director")//, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
   @JsonIgnore
   private List<Movie> movies;
+  // @OneToMany(mappedBy = "director", cascade = CascadeType.ALL)
+  // private List<Comment> comments;
   
   
   public Director() 

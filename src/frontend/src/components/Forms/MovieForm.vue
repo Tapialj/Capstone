@@ -88,7 +88,7 @@
             <h4>{{ error }}</h4>
           </div>
 
-          <ActorForm :isModal="true" @save-director="saveActor" />
+          <ActorForm :isModal="true" @save-actor="saveActor" />
         </Modal>
       </div>
 
@@ -101,7 +101,7 @@
   import SmallButton from "@/components/SmallButton.vue";
   import Modal from "@/components/Modal/Modal.vue";
   import DirectorForm from "@/components/Forms/DirectorForm.vue";
-  //import ActorForm from "@/components/Forms/ActorForm.vue";
+  import ActorForm from "@/components/Forms/ActorForm.vue";
 
   export default {
     name: "MovieForm",
@@ -110,7 +110,7 @@
       SmallButton,
       Modal,
       DirectorForm,
-      //ActorForm,
+      ActorForm,
     },
     props: {
       edit: {

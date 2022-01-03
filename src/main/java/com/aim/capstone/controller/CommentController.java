@@ -35,7 +35,7 @@ public class CommentController
     return commentService.getMovieComments(movieId);
   }
 
-  @PostMapping
+  @PostMapping(path = "movies")
   @ResponseStatus(HttpStatus.CREATED)
   public Comment createComment(@RequestBody Comment comment)
   {

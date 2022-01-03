@@ -4,8 +4,7 @@ import java.time.*;
 import java.util.*;
 import javax.persistence.*;
 
-//import com.fasterxml.jackson.annotation.*;
-//import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+//import org.hibernate.annotations.ManyToAny;
 
 
 @Entity
@@ -42,6 +41,7 @@ public class Movie implements Comparable<Movie>
     inverseJoinColumns = @JoinColumn(name = "actor_id", referencedColumnName = "id"))
   private List<Actor> actors;
   @OneToMany(mappedBy = "movie", cascade = CascadeType.ALL)
+  //@ManyToAny()
   private List<Comment> comments;
   
   

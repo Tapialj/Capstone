@@ -26,8 +26,10 @@
 <style scoped>
   .btn {
     display: inline-block;
-    padding: 0.6em 1.5em;
-    background-color: #00A38B;
+    align-self: flex-start;
+    padding: 0.4em 1.25em;
+    margin: 1rem 0;
+    background-color: #009F99;
     border: none;
     border-radius: 5px;
     cursor: pointer;

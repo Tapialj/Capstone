@@ -2,6 +2,8 @@ package com.aim.capstone.model;
 
 import javax.persistence.*;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 //import com.fasterxml.jackson.annotation.*;
 
 
@@ -17,12 +19,23 @@ public class Comment implements Comparable<Comment>
   private Long id;
   @ManyToOne(fetch = FetchType.EAGER)
   @JoinColumn(name = "movie_id", referencedColumnName = "id", insertable = false, updatable = false)
+  @JsonIgnore
   private Movie movie;
+  // @ManyToOne(fetch = FetchType.EAGER)
+  // @JoinColumn(name = "director_id", referencedColumnName = "id", insertable = false, updatable = false)
+  // private Director director;
+  // @ManyToOne(fetch = FetchType.EAGER)
+  // @JoinColumn(name = "actor_id", referencedColumnName = "id", insertable = false, updatable = false)
+  // private Actor actor;
+  // @Column(name = "parent_type")
+  // private Long parentType;
+  // @Column(name = "parent_id")
+  // private Long parentId;
   @Column(name = "movie_id")
   private Long movieId;
   @Column(name = "username")
   private String username;
-  @Column(name = "comment")
+  @Column(name = "comment", columnDefinition = "TEXT")
   private String comment;
   
   
@@ -52,11 +65,31 @@ public class Comment implements Comparable<Comment>
     this.comment = comment;
   }
 
+  /**
+  public Comment(Long parentType, Long parentId, String username, String comment)
+  {
+    this.parentType = parentType;
+    this.parentId = parentId;
+    this.username = username;
+    this.comment = comment;
+  }
+
+  public Comment(Long id, Long parentType, Long parentId, String username, String comment)
+  {
+    this.id = id;
+    this.parentType = parentType;
+    this.parentId = parentId;
+    this.username = username;
+    this.comment = comment;
+  }
+  */
   @Override
   public int compareTo(Comment c)
   {
     return this.getId().compareTo(c.getId());
   }
+
+  
 
   public Long getId()
   {
@@ -68,12 +101,63 @@ public class Comment implements Comparable<Comment>
     this.id = id;
   }
 
-  public Long getMovie()
+  public Movie getMovie()
+  {
+    return movie;
+  }
+
+  public void setMovie(Movie movie)
+  {
+    this.movie = movie;
+  }
+  /*
+  public Director getDirector()
+  {
+    return director;
+  }
+
+  public void setDirector(Director director)
+  {
+    this.director = director;
+  }
+
+  public Actor getActor()
+  {
+    return actor;
+  }
+
+  public void setActor(Actor actor)
+  {
+    this.actor = actor;
+  }
+
+  public Long getParentType()
+  {
+    return parentType;
+  }
+
+  public void setParentType(Long parentType)
+  {
+    this.parentType = parentType;
+  }
+
+  public Long getParentId()
+  {
+    return parentId;
+  }
+
+  public void setParentId(Long parentId)
+  {
+    this.parentId = parentId;
+  }
+  */
+
+  public Long getMovieId()
   {
     return movieId;
   }
 
-  public void setMovie(Long movieId)
+  public void setMovieId(Long movieId)
   {
     this.movieId = movieId;
   }
@@ -97,11 +181,11 @@ public class Comment implements Comparable<Comment>
   {
     this.comment = comment;
   }
-
+  /*
   @Override
   public String toString()
   {
-    return "Comment [comment=" + comment + ", id=" + id + ", movie=" + movieId + ", username=" + username + "]";
-  }  
-
+    return "Comment [comment=" + comment + ", id=" + id + ", parentId=" + parentId + ", parentType=" + parentType + ", username=" + username + "]";
+  }
+  */
 }
