@@ -140,8 +140,6 @@
     font-weight: bold;
   }
 
-
-
   .subtitle {
     font-weight: 400;
     font-size: 1rem;
