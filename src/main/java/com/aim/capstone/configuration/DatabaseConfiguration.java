@@ -70,7 +70,27 @@ public class DatabaseConfiguration
         "Martin"
       );
 
-      directorRepository.saveAll(List.of(jamesCameron, christopherNolan, martinScorsese));
+      Director parkChanwook = new Director(
+        "Chan-Wook",
+        "Park"
+      );
+
+      Director dannyBoyle = new Director(
+        "Boyle",
+        "Danny"
+      );
+      
+      Director tomShadyac = new Director(
+        "Shadyac",
+        "Tom"
+      );
+
+      Director jonathanDemme = new Director(
+        "Demme",
+        "Jonathan"
+      );
+
+      directorRepository.saveAll(List.of(jamesCameron, christopherNolan, martinScorsese, parkChanwook, dannyBoyle, tomShadyac, jonathanDemme));
 
 
       Actor leonardoDicaprio = new Actor(
@@ -93,6 +113,11 @@ public class DatabaseConfiguration
         "Sigourney"
       );
 
+      Actor michelleRodriguez = new Actor(
+        "Rodriguez",
+        "Michelle"
+      );
+
       Actor christianBale = new Actor(
         "Bale",
         "Christian"
@@ -108,6 +133,11 @@ public class DatabaseConfiguration
         "Aaron"
       );
 
+      Actor michaelCaine = new Actor(
+        "Caine",
+        "Michael"
+      );
+
       Actor kenWatanabe = new Actor(
         "Watanabe",
         "Ken"
@@ -116,6 +146,11 @@ public class DatabaseConfiguration
       Actor elliotPage = new Actor(
         "Page",
         "Elliot"
+      );
+
+      Actor josephGordonLevitt = new Actor(
+        "Gordon-Levitt",
+        "Joseph"
       );
 
       Actor markRuffalo = new Actor(
@@ -128,23 +163,133 @@ public class DatabaseConfiguration
         "Ben"
       );
 
-      // leonardoDicaprio = actorRepository.save(leonardoDicaprio);
-      // samWorthington  = actorRepository.save(samWorthington);
-      // sigourneyWeaver = actorRepository.save(sigourneyWeaver);
-      // christianBale = actorRepository.save(christianBale);
-      // heathLedger = actorRepository.save(heathLedger);
-      // aaronEckhart = actorRepository.save(aaronEckhart);
-      // kenWatanabe = actorRepository.save(kenWatanabe);
-      // elliotPage = actorRepository.save(elliotPage);
-      // markRuffalo = actorRepository.save(markRuffalo);
-      // benKingsley = actorRepository.save(benKingsley);
+      Actor emilyMortimer = new Actor(
+        "Mortimer",
+        "Emily"
+      );
 
-      actorRepository.saveAll(List.of(leonardoDicaprio, samWorthington, sigourneyWeaver, zoeSaldana, christianBale, heathLedger, aaronEckhart, kenWatanabe, elliotPage, markRuffalo, benKingsley));
+      Actor choiMinsik = new Actor( 
+        "Min-sik",
+        "Choi"
+      );
 
-      List<Actor> avatarActors = Arrays.asList(samWorthington, sigourneyWeaver, zoeSaldana);
-      List<Actor> darkKnightActors = Arrays.asList(christianBale, aaronEckhart, heathLedger);
-      List<Actor> inceptionActors = Arrays.asList(leonardoDicaprio, kenWatanabe, elliotPage);
-      List<Actor> shutterIslandActors = Arrays.asList(leonardoDicaprio, markRuffalo, benKingsley);
+      Actor yooJitae = new Actor( 
+        "Ji-Tae",
+        "Yoo"
+      );
+
+      Actor kangHyejeong = new Actor( 
+        "Hye-jeong",
+        "Kang"
+      );
+
+      Actor kimByeongok = new Actor(
+        "Byeong-Ok",
+        "Kim"
+      );
+
+      Actor mattDamon = new Actor( 
+        "Damon",
+        "Matt"
+      );
+
+      Actor jackNicholson = new Actor( 
+        "Nicholson",
+        "Jack"
+      );
+
+      Actor markWahlberg = new Actor(
+        "Wahlberg",
+        "Mark"
+      );
+
+      Actor cillianMurphy = new Actor( 
+        "Murphy",
+        "Cillian"
+      );
+
+      Actor roseByrne = new Actor( 
+        "Byrne",
+        "Rose"
+      );
+
+      Actor chrisEvans = new Actor( 
+        "Evans",
+        "Chris"
+      );
+
+      Actor cliffCurtis = new Actor(
+        "Curtis",
+        "Cliff"
+      );
+
+      Actor jimCarrey = new Actor( 
+        "Carrey",
+        "Jim"
+      );
+
+      Actor courtneyCox = new Actor( 
+        "Cox",
+        "Courtney"
+      );
+
+      Actor seanYoung = new Actor( 
+        "Young",
+        "Sean"
+      );
+
+      Actor toneLoc = new Actor( 
+        "Loc",
+        "Tone"
+      );
+
+      Actor mauraTierney = new Actor( 
+        "Tierney",
+        "Maura"
+      );
+
+      Actor amandaDonohoe = new Actor( 
+        "Donohoe",
+        "Amanda"
+      );
+
+      Actor jenniferTilly = new Actor( 
+        "Tilly",
+        "Jennifer"
+      );
+
+      Actor jodieFoster = new Actor( 
+        "Foster",
+        "Jodie"
+      );
+
+      Actor anthonyHopkins = new Actor( 
+        "Hopkins",
+        "Anthony"
+      );
+
+      Actor kasiLemmons = new Actor( 
+        "Lemmons",
+        "Kasi"
+      );
+
+      Actor scottGlenn = new Actor( 
+        "Glenn",
+        "Scott"
+      );
+
+      actorRepository.saveAll(List.of(leonardoDicaprio, samWorthington, sigourneyWeaver, zoeSaldana, michelleRodriguez, christianBale, heathLedger, aaronEckhart, michaelCaine, kenWatanabe, elliotPage, markRuffalo, benKingsley, josephGordonLevitt, cillianMurphy, emilyMortimer, choiMinsik, yooJitae, kangHyejeong, kimByeongok, mattDamon, jackNicholson, markWahlberg, roseByrne, chrisEvans, cliffCurtis, jimCarrey, courtneyCox, seanYoung, toneLoc, mauraTierney, amandaDonohoe, jenniferTilly, jodieFoster, anthonyHopkins, kasiLemmons, scottGlenn));
+
+      List<Actor> avatarActors = Arrays.asList(samWorthington, sigourneyWeaver, zoeSaldana, michelleRodriguez);
+      List<Actor> darkKnightActors = Arrays.asList(christianBale, aaronEckhart, heathLedger, michaelCaine);
+      List<Actor> inceptionActors = Arrays.asList(leonardoDicaprio, kenWatanabe, elliotPage, josephGordonLevitt, cillianMurphy);
+      List<Actor> shutterIslandActors = Arrays.asList(leonardoDicaprio, markRuffalo, benKingsley, emilyMortimer);
+      List<Actor> oldboyActors = Arrays.asList(choiMinsik, yooJitae, kangHyejeong, kimByeongok);
+      List<Actor> departedActors = Arrays.asList(leonardoDicaprio, mattDamon, jackNicholson, markWahlberg);
+      List<Actor> sunshineActors = Arrays.asList(cillianMurphy, roseByrne, chrisEvans, cliffCurtis);
+      List<Actor> aceVenturaActors = Arrays.asList(jimCarrey, courtneyCox, seanYoung, toneLoc);
+      List<Actor> liarLiarActors = Arrays.asList(jimCarrey, mauraTierney, amandaDonohoe, jenniferTilly);
+      List<Actor> silenceOfTheLambsActors = Arrays.asList(jodieFoster, anthonyHopkins, kasiLemmons, scottGlenn);
       
 
       Movie avatar = new Movie(
@@ -185,13 +330,79 @@ public class DatabaseConfiguration
         139,
         LocalDate.of(2010, Month.FEBRUARY, 19),
         "https://www.youtube.com/watch?v=v8yrZSkKxTA",
-        drama,
+        thriller,
         r,
         martinScorsese,
         shutterIslandActors
       );
 
-      movieRepository.saveAll(List.of(avatar, theDarkKnight, inception, shutterIsland));
+      Movie oldBoy = new Movie(
+        "Oldboy",
+        120,
+        LocalDate.of(2003, Month.NOVEMBER, 21),
+        "https://www.youtube.com/watch?v=2HkjrJ6IK5E",
+        drama,
+        r,
+        parkChanwook,
+        oldboyActors
+      );
+
+      Movie departed = new Movie(
+        "The Departed",
+        151,
+        LocalDate.of(2006, Month.SEPTEMBER, 6),
+        "https://www.youtube.com/watch?v=n4O3x5BH18E",
+        drama,
+        r,
+        martinScorsese,
+        departedActors
+      );
+
+      Movie sunshine = new Movie(
+        "Sunshine",
+        107,
+        LocalDate.of(2007, Month.JULY, 20),
+        "https://www.youtube.com/watch?v=r8BSlqHAhuY",
+        drama,
+        r,
+        dannyBoyle,
+        sunshineActors
+      );
+
+      Movie aceVentura = new Movie(
+        "Ace Ventura: Pet Detective",
+        86,
+        LocalDate.of(1994, Month.FEBRUARY, 4),
+        "https://www.youtube.com/watch?v=cXcH0f2B2vA",
+        comedy,
+        pg13,
+        tomShadyac,
+        aceVenturaActors
+      );
+
+      Movie liarLiar = new Movie(
+        "Liar Liar",
+        86,
+        LocalDate.of(1997, Month.MARCH, 21),
+        "https://www.youtube.com/watch?v=C1no75lpOiw",
+        comedy,
+        pg13,
+        tomShadyac,
+        liarLiarActors
+      );
+
+      Movie silenceOfTheLambs = new Movie(
+        "Silence of the Lambs",
+        118,
+        LocalDate.of(1991, Month.FEBRUARY, 14),
+        "https://www.youtube.com/watch?v=W6Mm8Sbe__o",
+        thriller,
+        r,
+        jonathanDemme,
+        silenceOfTheLambsActors
+      );
+
+      movieRepository.saveAll(List.of(avatar, theDarkKnight, inception, shutterIsland, oldBoy, departed, sunshine, aceVentura, liarLiar, silenceOfTheLambs));
     };
   }
 
