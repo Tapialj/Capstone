@@ -1,0 +1,2 @@
+(window["webpackJsonp"]=window["webpackJsonp"]||[]).push([["notFound"],{9703:function(n,t,e){"use strict";e.r(t);var o=e("7a23"),u=Object(o["g"])("h2",null,"404",-1),c=Object(o["g"])("h3",null,"Page not found",-1);function r(n,t){return Object(o["r"])(),Object(o["f"])(o["a"],null,[u,c],64)}var a=e("6b0d"),b=e.n(a);const d={},l=b()(d,[["render",r]]);t["default"]=l}}]);
+//# sourceMappingURL=notFound.fae84a36.js.map
